@@ -4,21 +4,21 @@
     <br/>
     🏇
     <br />
-    choc-datepicker
+    choc-datetimepicker
     <br />
     <br />
   </h1>
   <sup>
     <br />
     <br />
-    <a href="https://www.npmjs.com/package/choc-datepicker?style=for-the-badge">
-       <img src="https://img.shields.io/npm/v/choc-datepicker.svg?style=for-the-badge" alt="npm package" />
+    <a href="https://www.npmjs.com/package/choc-datetimepicker?style=for-the-badge">
+       <img src="https://img.shields.io/npm/v/choc-datetimepicker.svg?style=for-the-badge" alt="npm package" />
     </a>
-    <a href="https://www.npmjs.com/package/choc-datepicker?style=for-the-badge">
-      <img src="https://img.shields.io/npm/dw/choc-datepicker.svg?style=for-the-badge" alt="npm  downloads" />
+    <a href="https://www.npmjs.com/package/choc-datetimepicker?style=for-the-badge">
+      <img src="https://img.shields.io/npm/dw/choc-datetimepicker.svg?style=for-the-badge" alt="npm  downloads" />
     </a>
 <a>
-    <img alt="NPM" src="https://img.shields.io/npm/l/choc-datepicker?style=for-the-badge">
+    <img alt="NPM" src="https://img.shields.io/npm/l/choc-datetimepicker?style=for-the-badge">
 </a>
 
 <a><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/anubra266/choc-autocomplete?logo=github&style=for-the-badge">
@@ -31,14 +31,14 @@
 
 </a>
     <br />
-    Datepicker Component for the <a href="https://chakra-ui.com">Chakra UI</a> Library.</em>
+    datetimepicker Component for the <a href="https://chakra-ui.com">Chakra UI</a> Library.</em>
     
   </sup>
   <br />
   <br />
   <br />
   <br />
-  <pre>npm i <a href="https://www.npmjs.com/package/choc-datepicker">choc-datepicker</a></pre>
+  <pre>npm i <a href="https://www.npmjs.com/package/choc-datetimepicker">choc-datetimepicker</a></pre>
   <br />
   <br />
   <br />
@@ -49,9 +49,9 @@
 ## Install
 
 ```bash
-npm i --save choc-datepicker
+npm i --save choc-datetimepicker
 #or
-yarn add choc-datepicker
+yarn add choc-datetimepicker
 ```
 
 ## Preview
@@ -67,7 +67,7 @@ yarn add choc-datepicker
 ```js
 import { Flex, FormControl, FormHelperText, FormLabel } from "@chakra-ui/react";
 import * as React from "react";
-import {} from "choc-datepicker";
+import {} from "choc-datetimepicker";
 
 function App() {
   return (
@@ -87,17 +87,17 @@ export default App;
 Code Preview Image
 
 
-### Codesandbox Link [Here](https://githubbox.com/anubra266/choc-datepicker/tree/main/demo)
+### Codesandbox Link [Here](https://githubbox.com/anubra266/choc-datetimepicker/tree/main/demo)
 
 ## API Reference
 
-**NB**: Feel free to request any additional `Prop` in [Issues](https://github.com/anubra266/choc-datepicker/issues/new/).
+**NB**: Feel free to request any additional `Prop` in [Issues](https://github.com/anubra266/choc-datetimepicker/issues/new/).
 
-### **Datepicker**
+### **datetimepicker**
 
 bla bla
 
-**DatePicker** composes [**Box**](https://chakra-ui.com/docs/layout/box) so you can pass all Box props to change its style.
+**datetimepicker** composes [**Box**](https://chakra-ui.com/docs/layout/box) so you can pass all Box props to change its style.
 
 <!-- **NB:** None of the props passed to it are required. -->
 
@@ -125,7 +125,7 @@ bla bla
 - Clone this repository
 
 ```sh
-git clone https://github.com/anubra266/choc-datepicker.git
+git clone https://github.com/anubra266/choc-datetimepicker.git
 ```
 
 - Install all dependencies (with yarn)
