@@ -75,7 +75,7 @@ function App() {
                         format="short"
                       />
                       <chakra.div mb="4">
-                        <WeekNames>
+                        <WeekNames color="red">
                           {({ weekdays }) =>
                             weekdays.map((weekday, i) => (
                               <WeekDay
