@@ -43,7 +43,6 @@ const baseStyles: PopoverContentProps = {
   border: "none",
   shadow: "base",
   zIndex: "popover",
-  overflowY: "auto",
   textAlign: "center",
 
   _light: {

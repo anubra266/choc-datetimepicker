@@ -21,7 +21,7 @@ export function useDateTimePicker(
     defaultIsOpen,
     isDisabled,
     openOnFocus,
-    value,
+    selected,
     onChange,
     ...restPickerProps
   } = dateTimePickerProps;
@@ -48,7 +48,7 @@ export function useDateTimePicker(
     firstDayOfWeek: 1,
     showOutsideDays: true,
     date: date,
-    selected: value,
+    selected,
     onDateSelected: _options => {
       updateDate(_options.date);
       // if (!options.selectable) {
@@ -62,9 +62,9 @@ export function useDateTimePicker(
 
   const [input, setInput] = useState("");
   React.useEffect(() => {
-    const formattedValue = value && format(value, "dd/MM/yy");
+    const formattedValue = selected && format(selected, "dd/MM/yy");
     if (formattedValue) setInput(formattedValue!);
-  }, [value]);
+  }, [selected]);
 
   const getInputProps: UseDateTimePickerReturn["getInputProps"] = props => {
     const { onBlur, onFocus, ...rest } = props;

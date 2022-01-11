@@ -37,14 +37,14 @@ function App() {
         <FormLabel>Choose Date</FormLabel>
         <DateTimePicker
           openOnFocus
-          value={value}
+          selected={value}
           onChange={setValue}
           minDate={minDate}
         >
           <DateTimePickerTrigger />
           {/* <DateTimePickerTrigger>
-            <Button>wow</Button>
-          </DateTimePickerTrigger> */}
+              <Button>wow</Button>
+            </DateTimePickerTrigger> */}
           <DateTimePickerContent w="96">
             {({ calendars }) => (
               <>

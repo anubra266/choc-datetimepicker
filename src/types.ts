@@ -1,5 +1,5 @@
 import { InputProps } from "@chakra-ui/react";
-import { RenderProps } from "dayzed";
+import { Props, RenderProps } from "dayzed";
 import { Dispatch, SetStateAction } from "react";
 
 import { DateTimePickerProps } from "./datetimepicker";
@@ -7,16 +7,18 @@ import { DateTimePickerTriggerProps } from "./datetimepicker-trigger";
 
 export type ListReturnProps = {};
 
+export type DayzedProps = Omit<Props, "children" | "render">;
+
 export type UseDateTimePickerProps = Partial<{
   closeOnBlur: boolean;
   defaultIsOpen: boolean;
   isDisabled: boolean;
   openOnFocus: boolean;
-  value: Date;
+  selected: Date;
   onChange: (newDate: any) => void;
+}> &
+  Partial<DayzedProps>;
 
-  minDate: Date;
-}>;
 export type UseDateTimePickerReturn = {
   dateTimePickerProps: DateTimePickerProps;
   dayzedProps: RenderProps;
