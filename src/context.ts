@@ -6,5 +6,5 @@ export const [DateTimePickerProvider, useDateTimePickerContext] = createContext<
 >({
   name: "DateTimePickerContext",
   errorMessage:
-    "useDateTimePickerContext: `context` is undefined. Seems you forgot to wrap all autoomplete components within `<AutoComplete />`",
+    "useDateTimePickerContext: `context` is undefined. Seems you forgot to wrap all date-time-picker components within `<DateTimePicker />`",
 });

@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ChakraProvider, extendTheme, ThemeConfig } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  extendTheme,
+  ThemeConfig,
+  ChakraTheme,
+} from "@chakra-ui/react";
 
 import "./index.css";
 import App from "./App";
@@ -18,13 +23,26 @@ const colors = {
     800: "#181c37",
     900: "#080819",
   },
+  gray: {
+    50: "#f8f7fa",
+    700: "#282729",
+    800: "#191819",
+  },
 };
 const config: ThemeConfig = {
   initialColorMode: "dark",
   useSystemColorMode: false,
 };
+const styles: ChakraTheme["styles"] = {
+  global: props => ({
+    body: {
+      bg: props.colorMode === "light" ? "gray.50" : "gray.800",
+      transition: "background .4s ease-in-out",
+    },
+  }),
+};
 
-const theme = extendTheme({ colors, config });
+const theme = extendTheme({ colors, config, styles });
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,6 +1,6 @@
 import React from "react";
 import { MaybeRenderProp } from "@chakra-ui/react-utils";
-import { chakra, forwardRef, Popover } from "@chakra-ui/react";
+import { Popover } from "@chakra-ui/react";
 import { runIfFn } from "@chakra-ui/utils";
 
 import { DateTimePickerProvider } from "./context";
@@ -19,41 +19,25 @@ export interface DateTimePickerProps extends UseDateTimePickerProps {
 
 //TODO show as modal on smaller screens
 
-export const DateTimePicker = forwardRef<DateTimePickerProps, "div">(
-  (props, ref) => {
-    const context = useDateTimePicker(props);
-    const { isOpen, onClose, onOpen } = context;
+export const DateTimePicker = (props: DateTimePickerProps) => {
+  const context = useDateTimePicker(props);
+  const { isOpen, onClose, onOpen } = context;
 
-    const children = runIfFn(props.children, {
-      isOpen,
-      onClose,
-      onOpen,
-    });
+  const children = runIfFn(props.children, context);
 
-    return (
-      <DateTimePickerProvider value={context}>
-        <Popover
-          isLazy
-          isOpen={isOpen}
-          onClose={onClose}
-          onOpen={onOpen}
-          autoFocus={false}
-          placement="bottom"
-          closeOnBlur={true}
-        >
-          <chakra.div
-            sx={{
-              ".chakra-popover__popper": {
-                position: "unset !important",
-              },
-            }}
-            w="full"
-            ref={ref}
-          >
-            {children}
-          </chakra.div>
-        </Popover>
-      </DateTimePickerProvider>
-    );
-  }
-);
+  return (
+    <DateTimePickerProvider value={context}>
+      <Popover
+        isLazy
+        isOpen={isOpen}
+        onClose={onClose}
+        onOpen={onOpen}
+        autoFocus={false}
+        placement="bottom"
+        closeOnBlur={true}
+      >
+        {children}
+      </Popover>
+    </DateTimePickerProvider>
+  );
+};

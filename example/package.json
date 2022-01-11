@@ -19,6 +19,6 @@
     "vite": "^2.4.3"
   },
   "dependencies": {
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.3.1"
   }
 }
