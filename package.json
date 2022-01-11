@@ -35,20 +35,20 @@
     "singleQuote": false,
     "trailingComma": "es5"
   },
-  "name": "choc-datepicker",
+  "name": "choc-datetimepicker",
   "author": "anubra266",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anubra266/choc-datepicker.git"
+    "url": "git+https://github.com/anubra266/choc-datetimepicker.git"
   },
-  "module": "dist/choc-datepicker.esm.js",
+  "module": "dist/choc-datetimepicker.esm.js",
   "size-limit": [
     {
-      "path": "dist/choc-datepicker.cjs.production.min.js",
+      "path": "dist/choc-datetimepicker.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/choc-datepicker.esm.js",
+      "path": "dist/choc-datetimepicker.esm.js",
       "limit": "10 KB"
     }
   ],
