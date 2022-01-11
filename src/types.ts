@@ -12,6 +12,7 @@ export type DayzedProps = Omit<Props, "children" | "render">;
 export type UseDateTimePickerProps = Partial<{
   closeOnBlur: boolean;
   defaultIsOpen: boolean;
+  disableOutsideMonths: boolean;
   isDisabled: boolean;
   openOnFocus: boolean;
   selected: Date;

@@ -39,6 +39,7 @@ function App() {
           openOnFocus
           selected={value}
           onChange={setValue}
+          disableOutsideMonths
           minDate={minDate}
         >
           <DateTimePickerTrigger />
@@ -92,6 +93,7 @@ function App() {
                             {week.map((dateObj, index) => {
                               return (
                                 <WeekDate
+                                  isDisabled
                                   dateObj={dateObj}
                                   key={`${weekIndex}_+_${index}`}
                                 />
