@@ -2,6 +2,7 @@ import { Button, ButtonProps } from "@chakra-ui/react";
 import { CSSObject } from "@chakra-ui/styled-system";
 import { dataAttr } from "@chakra-ui/utils";
 import { DateObj } from "dayzed";
+import { isSameDay } from "date-fns";
 import React from "react";
 
 import { ARROW_KEYS } from "..";
@@ -29,7 +30,7 @@ export const WeekDate = (props: WeekDateProps) => {
     setDate,
     date: calendarDate,
   } = useDateTimePickerContext();
-  const { disableOutsideMonths } = dateTimePickerProps;
+  const { disabledDates, disableOutsideMonths } = dateTimePickerProps;
   const { getDateProps } = dayzedProps;
 
   if (!dateObj) return null;
@@ -46,7 +47,12 @@ export const WeekDate = (props: WeekDateProps) => {
 
   const disableAsOutsideMonths = isOutsideMonth && disableOutsideMonths;
 
-  const isDisabled = !selectable || disableAsOutsideMonths;
+  const isAmongDisabledDates = disabledDates?.some(d => isSameDay(d, date));
+  const isDisabled =
+    !selectable ||
+    disableAsOutsideMonths ||
+    isAmongDisabledDates ||
+    props.isDisabled;
 
   const dataValue = getDataValue(date);
 
@@ -88,6 +94,9 @@ export const WeekDate = (props: WeekDateProps) => {
 const defaultDisabledStyles: ButtonProps = {
   color: "gray.300",
   cursor: "not-allowed",
+  _dark: {
+    color: "gray.600",
+  },
 };
 
 const defaultSelectedStyles: ButtonProps = {

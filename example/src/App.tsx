@@ -28,7 +28,8 @@ import { sub } from "date-fns";
 function App() {
   const [value, setValue] = useState<Date | undefined>();
   const { toggleColorMode } = useColorMode();
-  const minDate = sub(new Date(), { days: 4 });
+  const disable = sub(new Date(), { days: 4 });
+  const disable2 = sub(new Date(), { days: 2 });
 
   return (
     <Flex pt="48" justify="center" align="center" w="full" direction="column">
@@ -40,6 +41,7 @@ function App() {
           selected={value}
           onChange={setValue}
           disableOutsideMonths
+          disabledDates={[disable, disable2]}
           // minDate={minDate}
         >
           <DateTimePickerTrigger />
