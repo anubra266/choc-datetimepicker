@@ -1,11 +1,11 @@
-import { InputProps } from "@chakra-ui/react";
+import { InputProps, PopoverContentProps } from "@chakra-ui/react";
 import { Props, RenderProps } from "dayzed";
 import { Dispatch, SetStateAction } from "react";
 
 import { DateTimePickerProps } from "./datetimepicker";
 import { DateTimePickerTriggerProps } from "./datetimepicker-trigger";
 
-export type ListReturnProps = {};
+export type ListReturnProps = PopoverContentProps & {};
 
 export type DayzedProps = Omit<Props, "children" | "render">;
 
