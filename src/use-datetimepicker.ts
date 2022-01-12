@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 import { DateTimePickerProps } from "./datetimepicker";
 import { UseDateTimePickerReturn } from "./types";
-import { getDataValue } from "./utils/weekDates";
+import { getDataValue, getDateButton } from "./utils/weekDates";
 
 /**
  * useDateTimepicker is a hook that provides all the state and focus management logic
@@ -108,17 +108,9 @@ export function useDateTimePicker(
       onFocus: e => {
         const contentIsTarget = e.target === e.currentTarget;
         if (contentIsTarget) {
-          let dateToFocus;
-          if (selected) {
-            const dateValueData = getDataValue(selected);
-            dateToFocus = document.querySelector(
-              `[data-value='${dateValueData}']`
-            ) as HTMLElement;
-          } else {
-            dateToFocus = document.querySelector(
-              "[data-enabled]"
-            ) as HTMLElement;
-          }
+          //focus the selected date, if none then today's date
+          const dateValueData = getDataValue(selected || new Date());
+          const dateToFocus = getDateButton(dateValueData);
           if (dateToFocus) dateToFocus.focus();
         }
       },

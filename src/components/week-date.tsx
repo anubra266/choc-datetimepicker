@@ -38,7 +38,12 @@ export const WeekDate = (props: WeekDateProps) => {
   React.useEffect(() => {
     const dateValue = getDataValue(calendarDate);
     const dateButton = getDateButton(dateValue);
-    dateButton.focus();
+    if (dateButton) dateButton.focus();
+    else {
+      // Focus the first day whwenever we navigate the months
+      const firstDay = document.querySelector("[data-enabled]") as HTMLElement;
+      firstDay.focus();
+    }
   }, [calendarDate]);
 
   let { date, selected, selectable, today, prevMonth, nextMonth } = dateObj;
