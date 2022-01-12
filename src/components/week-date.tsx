@@ -1,9 +1,19 @@
-import { Button, ButtonProps } from "@chakra-ui/button";
+import { Button, ButtonProps } from "@chakra-ui/react";
 import { CSSObject } from "@chakra-ui/styled-system";
 import { dataAttr } from "@chakra-ui/utils";
 import { DateObj } from "dayzed";
 import React from "react";
+
+import { ARROW_KEYS } from "..";
+
 import { useDateTimePickerContext } from "../context";
+import {
+  ArrowKeys,
+  findNextDate,
+  getDataValue,
+  getDateButton,
+  handleOutsideMonths,
+} from "../utils/weekDates";
 
 export type WeekDateProps = ButtonProps & {
   dateObj: "" | DateObj;
@@ -13,11 +23,22 @@ export type WeekDateProps = ButtonProps & {
 export const WeekDate = (props: WeekDateProps) => {
   const { dateObj, _today, ...restProps } = props;
 
-  const { dayzedProps, dateTimePickerProps } = useDateTimePickerContext();
+  const {
+    dayzedProps,
+    dateTimePickerProps,
+    setDate,
+    date: calendarDate,
+  } = useDateTimePickerContext();
   const { disableOutsideMonths } = dateTimePickerProps;
   const { getDateProps } = dayzedProps;
 
   if (!dateObj) return null;
+
+  React.useEffect(() => {
+    const dateValue = getDataValue(calendarDate);
+    const dateButton = getDateButton(dateValue);
+    dateButton.focus();
+  }, [calendarDate]);
 
   let { date, selected, selectable, today, prevMonth, nextMonth } = dateObj;
 
@@ -27,17 +48,36 @@ export const WeekDate = (props: WeekDateProps) => {
 
   const isDisabled = !selectable || disableAsOutsideMonths;
 
+  const dataValue = getDataValue(date);
+
+  const onKeyDown: React.KeyboardEventHandler<HTMLButtonElement> = e => {
+    if (ARROW_KEYS.includes(e.key)) {
+      const nextFocusDate = findNextDate(date, e.key as ArrowKeys);
+
+      //handle outside months
+      if (["ArrowRight", "ArrowLeft"].includes(e.key) && !nextFocusDate) {
+        const outsideMonthDate = handleOutsideMonths(date);
+        if (outsideMonthDate) setDate(outsideMonthDate);
+      }
+
+      nextFocusDate?.focus();
+    }
+  };
+
   return (
     <Button
       {...getDateProps({ dateObj, disabled: isDisabled })}
       data-selected={dataAttr(selected)}
       data-today={dataAttr(today)}
+      data-enabled={dataAttr(!isDisabled)}
+      data-value={dataValue}
+      {...defaultRootStyles}
       _disabled={defaultDisabledStyles}
       _selected={defaultSelectedStyles}
       __css={{
         "&[data-today]": _today || defaultTodayStyles,
       }}
-      {...defaultRootStyles}
+      onKeyDown={onKeyDown}
       {...restProps}
     >
       {date.getDate()}

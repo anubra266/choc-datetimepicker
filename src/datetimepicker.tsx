@@ -32,7 +32,6 @@ export const DateTimePicker = (props: DateTimePickerProps) => {
         isOpen={isOpen}
         onClose={onClose}
         onOpen={onOpen}
-        autoFocus={false}
         placement="bottom"
         closeOnBlur={true}
       >

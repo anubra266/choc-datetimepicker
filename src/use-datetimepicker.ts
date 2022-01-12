@@ -6,6 +6,7 @@ import { format } from "date-fns";
 
 import { DateTimePickerProps } from "./datetimepicker";
 import { UseDateTimePickerReturn } from "./types";
+import { getDataValue } from "./utils/weekDates";
 
 /**
  * useDateTimepicker is a hook that provides all the state and focus management logic
@@ -45,7 +46,7 @@ export function useDateTimePicker(
   };
 
   const dayzedProps = useDayzed({
-    firstDayOfWeek: 1,
+    // firstDayOfWeek: 1,
     showOutsideDays: true,
     date: date,
     selected,
@@ -104,6 +105,23 @@ export function useDateTimePicker(
 
     return {
       width,
+      onFocus: e => {
+        const contentIsTarget = e.target === e.currentTarget;
+        if (contentIsTarget) {
+          let dateToFocus;
+          if (selected) {
+            const dateValueData = getDataValue(selected);
+            dateToFocus = document.querySelector(
+              `[data-value='${dateValueData}']`
+            ) as HTMLElement;
+          } else {
+            dateToFocus = document.querySelector(
+              "[data-enabled]"
+            ) as HTMLElement;
+          }
+          if (dateToFocus) dateToFocus.focus();
+        }
+      },
     };
   };
 

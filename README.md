@@ -59,6 +59,7 @@ yarn add choc-datetimepicker
 Learn More in the [Docs]()
 
 ## Upcoming features
+- Add disabled Dates
 - Multi date selection
 - Range date picker
 - Time Picker
