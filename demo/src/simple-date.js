@@ -26,7 +26,7 @@ import {
 import { sub } from "date-fns";
 
 function App() {
-  const [value, setValue] = useState<Date | undefined>();
+  const [value, setValue] = useState();
   const { toggleColorMode } = useColorMode();
   const minDate = sub(new Date(), { days: 1 });
 
