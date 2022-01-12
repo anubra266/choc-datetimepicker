@@ -1,4 +1,8 @@
-import { InputProps, PopoverContentProps } from "@chakra-ui/react";
+import {
+  InputProps,
+  PopoverProps,
+  PopoverContentProps,
+} from "@chakra-ui/react";
 import { Props, RenderProps } from "dayzed";
 import { Dispatch, SetStateAction } from "react";
 
@@ -16,6 +20,7 @@ export type UseDateTimePickerProps = Partial<{
   disableOutsideMonths: boolean;
   isDisabled: boolean;
   openOnFocus: boolean;
+  placement: PopoverProps["placement"];
   selected: Date;
   onChange: (newDate: any) => void;
 }> &
