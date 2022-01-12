@@ -1,4 +1,3 @@
-import React from "react";
 
 import { Stack } from "@chakra-ui/react";
 import SimpleDate from "./simple-date";
