@@ -22,7 +22,7 @@ import {
   WeekNames,
   WeekDay,
   WeekDate,
-} from "choc-datepicker";
+} from "choc-datetimepicker";
 import { sub } from "date-fns";
 
 function App() {
