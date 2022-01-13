@@ -2,11 +2,12 @@ import { useDimensions, useDisclosure } from "@chakra-ui/react";
 import { runIfFn } from "@chakra-ui/utils";
 import { useDayzed } from "dayzed";
 import React, { useRef, useState } from "react";
-import { format } from "date-fns";
+import { format, getDaysInMonth, setDate as setDateFns } from "date-fns";
 
 import { DateTimePickerProps } from "./datetimepicker";
 import { UseDateTimePickerReturn } from "./types";
-import { getDataValue, getDateButton } from "./utils/weekDates";
+import { ArrowKeys, getDataValue } from "./utils/weekDates";
+import { DATE_ARROW_METHODS } from ".";
 
 /**
  * useDateTimepicker is a hook that provides all the state and focus management logic
@@ -24,6 +25,7 @@ export function useDateTimePicker(
     openOnFocus,
     selected,
     onChange,
+    id: pickerId,
     ...restPickerProps
   } = dateTimePickerProps;
 
@@ -67,6 +69,12 @@ export function useDateTimePicker(
     if (formattedValue) setInput(formattedValue!);
   }, [selected]);
 
+  const getDateButton = (dataValue: string) => {
+    return document.querySelector(
+      `[data-value_${pickerId}='${dataValue}']`
+    ) as HTMLElement;
+  };
+
   const getInputProps: UseDateTimePickerReturn["getInputProps"] = props => {
     const { onBlur, onFocus, ...rest } = props;
     const onChangeInput: React.ChangeEventHandler<HTMLInputElement> = e => {
@@ -99,6 +107,7 @@ export function useDateTimePicker(
   };
 
   const inputDimensions = useDimensions(inputRef, true);
+  // const { getDateButton } = useDateButton();
 
   const getListProps: UseDateTimePickerReturn["getListProps"] = () => {
     const width = inputDimensions?.marginBox.width as number;
@@ -117,11 +126,47 @@ export function useDateTimePicker(
     };
   };
 
+  const getWeekDateProps: UseDateTimePickerReturn["getWeekDateProps"] = () => {
+    const findNextDate = (currentDate: Date, direction: ArrowKeys) => {
+      const { func } = DATE_ARROW_METHODS[direction];
+      const daysInMonth = getDaysInMonth(currentDate);
+      //Add 1 day to account for 0 indexing
+      const daysInMonthArray = Array.from(
+        { length: daysInMonth },
+        (_v, i) => i + 1
+      );
+
+      const nextDays = func(daysInMonthArray, currentDate.getDate());
+      const nextValidDateButton = nextDays.reduce((acc, day) => {
+        const dateFromDay = setDateFns(currentDate, day);
+        const dataValue = getDataValue(dateFromDay);
+        const dateButton = getDateButton(dataValue);
+        console.log(`nawa-${day}`, dateButton?.dataset);
+        if (
+          (dateButton?.dataset[`enabled_${pickerId}`] === "" ||
+            // Don't move focus when navigating up or down and the next date is disabled
+            ["ArrowUp", "ArrowDown"].includes(direction)) &&
+          !acc
+        ) {
+          acc = dateButton;
+        }
+        return acc;
+      }, (undefined as unknown) as HTMLElement | undefined);
+      return nextValidDateButton;
+    };
+
+    return {
+      findNextDate,
+      getDateButton,
+    };
+  };
+
   return {
     dateTimePickerProps,
     dayzedProps,
     getInputProps,
     getListProps,
+    getWeekDateProps,
     inputRef,
     isOpen,
     listRef,

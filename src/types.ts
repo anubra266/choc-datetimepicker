@@ -8,8 +8,13 @@ import { Dispatch, SetStateAction } from "react";
 
 import { DateTimePickerProps } from "./datetimepicker";
 import { DateTimePickerTriggerProps } from "./datetimepicker-trigger";
+import { ArrowKeys } from "./utils/weekDates";
 
 export type ListReturnProps = PopoverContentProps & {};
+export type WeekDateReturnProps = {
+  findNextDate: (date: Date, direction: ArrowKeys) => HTMLElement | undefined;
+  getDateButton: (dataValue: string) => HTMLElement;
+};
 
 export type DayzedProps = Omit<Props, "children" | "render">;
 
@@ -31,6 +36,7 @@ export type UseDateTimePickerReturn = {
   dayzedProps: RenderProps;
   getInputProps: (props: DateTimePickerTriggerProps) => InputProps;
   getListProps: () => ListReturnProps;
+  getWeekDateProps: () => WeekDateReturnProps;
   inputRef: React.RefObject<HTMLInputElement>;
   isOpen: boolean;
   listRef: React.RefObject<HTMLDivElement>;

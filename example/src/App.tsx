@@ -24,6 +24,7 @@ import {
   WeekDate,
 } from "../../";
 import { sub } from "date-fns";
+import Date2 from "./date2";
 
 function App() {
   const [value, setValue] = useState<Date | undefined>();
@@ -37,6 +38,7 @@ function App() {
       <FormControl id="email" w="60">
         <FormLabel>Choose Date</FormLabel>
         <DateTimePicker
+          id="date1"
           openOnFocus
           selected={value}
           onChange={setValue}
@@ -112,6 +114,7 @@ function App() {
         </DateTimePicker>
         <FormHelperText>Choose your date</FormHelperText>
       </FormControl>
+      <Date2 />
     </Flex>
   );
 }

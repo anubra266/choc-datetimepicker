@@ -10,6 +10,7 @@ import { UseDateTimePickerReturn } from ".";
 
 export interface DateTimePickerProps extends UseDateTimePickerProps {
   children: MaybeRenderProp<UseDateTimePickerReturn>;
+  id: string;
 }
 
 //TODO show as modal on smaller screens

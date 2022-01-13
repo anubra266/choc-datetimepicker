@@ -10,9 +10,7 @@ import { ARROW_KEYS } from "..";
 import { useDateTimePickerContext } from "../context";
 import {
   ArrowKeys,
-  findNextDate,
   getDataValue,
-  getDateButton,
   handleOutsideMonths,
 } from "../utils/weekDates";
 
@@ -29,8 +27,15 @@ export const WeekDate = (props: WeekDateProps) => {
     dateTimePickerProps,
     setDate,
     date: calendarDate,
+    getWeekDateProps,
   } = useDateTimePickerContext();
-  const { disabledDates, disableOutsideMonths } = dateTimePickerProps;
+
+  const { findNextDate, getDateButton } = getWeekDateProps();
+  const {
+    disabledDates,
+    disableOutsideMonths,
+    id: pickerId,
+  } = dateTimePickerProps;
   const { getDateProps } = dayzedProps;
 
   if (!dateObj) return null;
@@ -41,7 +46,9 @@ export const WeekDate = (props: WeekDateProps) => {
     if (dateButton) dateButton.focus();
     else {
       // Focus the first day whwenever we navigate the months
-      const firstDay = document.querySelector("[data-enabled]") as HTMLElement;
+      const firstDay = document.querySelector(
+        `[data-enabled_${pickerId}]`
+      ) as HTMLElement;
       firstDay.focus();
     }
   }, [calendarDate]);
@@ -72,16 +79,22 @@ export const WeekDate = (props: WeekDateProps) => {
       }
 
       nextFocusDate?.focus();
+      e.preventDefault();
     }
+  };
+
+  const dataProps = {
+    "data-selected": dataAttr(selected),
+    "data-today": dataAttr(today),
+
+    [`data-enabled_${pickerId}`]: dataAttr(!isDisabled),
+    [`data-value_${pickerId}`]: dataValue,
   };
 
   return (
     <Button
       {...getDateProps({ dateObj, disabled: isDisabled })}
-      data-selected={dataAttr(selected)}
-      data-today={dataAttr(today)}
-      data-enabled={dataAttr(!isDisabled)}
-      data-value={dataValue}
+      {...dataProps}
       {...defaultRootStyles}
       _disabled={defaultDisabledStyles}
       _selected={defaultSelectedStyles}
