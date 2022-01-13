@@ -38,7 +38,7 @@ function App() {
       <FormControl id="email" w="60">
         <FormLabel>Choose Date</FormLabel>
         <DateTimePicker
-          id="date1"
+          id="date2"
           openOnFocus
           selected={value}
           onChange={setValue}

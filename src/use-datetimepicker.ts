@@ -47,6 +47,14 @@ export function useDateTimePicker(
     }
   };
 
+  React.useEffect(() => {
+    const pickers = document.querySelectorAll(`[data-pickerid='${pickerId}']`);
+    if (pickers.length > 1)
+      console.error(
+        `Found ${pickers.length} pickers with id \`${pickerId}\`; The id should be unique for each picker `
+      );
+  }, []);
+
   const dayzedProps = useDayzed({
     // firstDayOfWeek: 1,
     showOutsideDays: true,
@@ -141,7 +149,6 @@ export function useDateTimePicker(
         const dateFromDay = setDateFns(currentDate, day);
         const dataValue = getDataValue(dateFromDay);
         const dateButton = getDateButton(dataValue);
-        console.log(`nawa-${day}`, dateButton?.dataset);
         if (
           (dateButton?.dataset[`enabled_${pickerId}`] === "" ||
             // Don't move focus when navigating up or down and the next date is disabled

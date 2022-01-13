@@ -18,7 +18,12 @@ export const DateTimePickerContent = forwardRef<
   DateTimePickerContentProps,
   "div"
 >((props, forwardedRef) => {
-  const { listRef, getListProps, dayzedProps } = useDateTimePickerContext();
+  const {
+    listRef,
+    getListProps,
+    dayzedProps,
+    dateTimePickerProps: { id: pickerId },
+  } = useDateTimePickerContext();
   const { children, ...restProps } = props;
   const ref = useMergeRefs(forwardedRef, listRef);
   const listProps = getListProps();
@@ -26,7 +31,13 @@ export const DateTimePickerContent = forwardRef<
   const contentChildren = runIfFn(children, dayzedProps);
 
   return (
-    <PopoverContent ref={ref} {...baseStyles} {...listProps} {...restProps}>
+    <PopoverContent
+      ref={ref}
+      {...baseStyles}
+      {...listProps}
+      {...restProps}
+      data-pickerid={pickerId}
+    >
       {contentChildren}
     </PopoverContent>
   );
