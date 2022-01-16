@@ -43,7 +43,7 @@ function App() {
           selected={value}
           onChange={setValue}
           disableOutsideMonths
-          firstDayOfWeek={1}
+          firstDayOfWeek={0}
           // disabledDates={[disable, disable2]}
           // minDate={minDate}
         >

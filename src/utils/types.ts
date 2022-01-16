@@ -17,6 +17,8 @@ export type ArrowProps = PartialBy<IconButtonProps, "aria-label"> & {
   arrowType?: ArrowButtonType;
 };
 
+export type WeekDayFormat = "narrow" | "short" | "abbreviated" | "long";
+
 export type ArrowButtonType = "month" | "year";
 
 export type ArrowDirection = "previous" | "next";
@@ -35,6 +37,7 @@ export type UseDateTimePickerProps = Partial<{
   disabledDates: Date[];
   disableOutsideMonths: boolean;
   isDisabled: boolean;
+  locale: Locale;
   openOnFocus: boolean;
   placement: PopoverProps["placement"];
   selected: Date;
