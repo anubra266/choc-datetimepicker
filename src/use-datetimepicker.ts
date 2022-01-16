@@ -7,7 +7,7 @@ import { format, getDaysInMonth, setDate as setDateFns } from "date-fns";
 import { DateTimePickerProps } from "./datetimepicker";
 import { UseDateTimePickerReturn } from "./types";
 import { ArrowKeys, getDataValue } from "./utils/weekDates";
-import { DATE_ARROW_METHODS } from ".";
+import { DATE_ARROW_METHODS, DATE_FORMAT } from ".";
 
 /**
  * useDateTimepicker is a hook that provides all the state and focus management logic
@@ -73,7 +73,7 @@ export function useDateTimePicker(
 
   const [input, setInput] = useState("");
   React.useEffect(() => {
-    const formattedValue = selected && format(selected, "dd/MM/yy");
+    const formattedValue = selected && format(selected, DATE_FORMAT);
     if (formattedValue) setInput(formattedValue!);
   }, [selected]);
 

@@ -5,11 +5,11 @@ import {
   add,
   sub,
 } from "date-fns";
-import { DATE_ARROW_METHODS } from "..";
+import { DATE_ARROW_METHODS, DATE_FORMAT } from "..";
 
 export type ArrowKeys = keyof typeof DATE_ARROW_METHODS;
 
-export const getDataValue = (date: Date) => format(date, "dd-MM-yyyy");
+export const getDataValue = (date: Date) => format(date, DATE_FORMAT);
 
 export const handleOutsideMonths = (date: Date) => {
   //handle outside months

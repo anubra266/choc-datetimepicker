@@ -38,12 +38,12 @@ function App() {
       <FormControl id="email" w="60">
         <FormLabel>Choose Date</FormLabel>
         <DateTimePicker
-          id="date2"
+          id="date1"
           openOnFocus
           selected={value}
           onChange={setValue}
           disableOutsideMonths
-          disabledDates={[disable, disable2]}
+          // disabledDates={[disable, disable2]}
           // minDate={minDate}
         >
           <DateTimePickerTrigger />
@@ -57,6 +57,8 @@ function App() {
                   <BackButton />
                   <NextButton />
                   <BackButton as={Button}>Previous Month</BackButton>
+                  <BackButton arrowType="year" />
+                  <NextButton arrowType="year" />
                 </div>
                 <chakra.div display="flex">
                   {calendars.map((calendar, i) => (
@@ -114,7 +116,7 @@ function App() {
         </DateTimePicker>
         <FormHelperText>Choose your date</FormHelperText>
       </FormControl>
-      <Date2 />
+      {/* <Date2 /> */}
     </Flex>
   );
 }

@@ -54,15 +54,25 @@ npm i --save choc-datetimepicker
 yarn add choc-datetimepicker
 ```
 
+## Add react Icons(optional if you're not using our default Buttons)
+
+```bash
+npm i --save react-icons
+#or
+yarn add react-icons
+```
+
 ## Preview
 
 Learn More in the [Docs]()
 
 ## Upcoming features
+
 - Add disabled Dates
 - Multi date selection
 - Range date picker
 - Time Picker
+
 ## Contribute
 
 - Clone this repository

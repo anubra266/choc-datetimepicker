@@ -1,5 +1,4 @@
-export * from "./arrow-buttons/back-button";
-export * from "./arrow-buttons/next-button";
+export * from "./arrow-buttons";
 export * from "./calendar-month";
 export * from "./calendar-year";
 export * from "./week-names";

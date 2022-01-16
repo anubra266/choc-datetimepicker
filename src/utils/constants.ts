@@ -22,6 +22,12 @@ export const DATE_ARROW_METHODS = {
 };
 
 export const ARROW_KEYS = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"];
+export const DATE_FORMAT = "dd-MM-yyyy";
+
+export const ARROW_BUTTON_OFFSET = {
+  month: 1,
+  year: 12,
+};
 
 export const SHORT_MONTH_NAMES = [
   "Jan",
