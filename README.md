@@ -76,8 +76,6 @@ yarn add react-icons
 
 ## Upcoming features
 
-- custom first day of the week
-- Add disabled Dates
 - Multi date selection
 - Range date picker
 - Time Picker
