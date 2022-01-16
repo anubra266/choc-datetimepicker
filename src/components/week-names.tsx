@@ -1,30 +1,25 @@
+import React from "react";
 import { MaybeRenderProp } from "@chakra-ui/react-utils";
 import { runIfFn } from "@chakra-ui/utils";
-import { SHORT_WEEKDAY_NAMES, SINGLE_WEEKDAY_NAMES, WEEKDAY_NAMES } from "..";
-import React from "react";
+import { WeekDayFormat } from "..";
 import { WeekDay } from ".";
 import { chakra, HTMLChakraProps } from "@chakra-ui/system";
-
-import locale from "date-fns/esm/locale/en-US";
+import { useWeekNames } from "../utils/weekNames";
 
 export type WeekNamesProps = HTMLChakraProps<any> & {
   children?: MaybeRenderProp<{
-    weekdays:
-      | typeof SHORT_WEEKDAY_NAMES[number][]
-      | typeof SINGLE_WEEKDAY_NAMES[number][];
+    weekdays: string[];
   }>;
-  format?: "single" | "short";
+  format?: WeekDayFormat;
 };
 
 export const WeekNames = (props: WeekNamesProps) => {
-  const { children, format = "single", ...restProps } = props;
-  const weekdays = Array.from({ length: 7 }, (_, i) =>
-    locale?.localize?.day(i, { width: "short" })
-  );
-  console.log("weekdays :>> ", weekdays);
+  const { children, format, ...restProps } = props;
+
+  const weekdays = useWeekNames(format);
 
   const customWeekNames = runIfFn(children, {
-    weekdays: WEEKDAY_NAMES[format],
+    weekdays,
   });
 
   const defaultWeekNames = <WeekDays format={format} />;
@@ -35,11 +30,12 @@ export const WeekNames = (props: WeekNamesProps) => {
 };
 
 const WeekDays = (props: { format?: WeekNamesProps["format"] }) => {
-  const { format = "single" } = props;
+  const { format } = props;
+  const weekdays = useWeekNames(format);
 
   return (
     <>
-      {WEEKDAY_NAMES[format].map((weekday, i) => (
+      {weekdays.map((weekday, i) => (
         <WeekDay key={`${weekday}-${i}`}>{weekday}</WeekDay>
       ))}
     </>
