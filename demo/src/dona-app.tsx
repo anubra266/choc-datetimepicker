@@ -154,6 +154,10 @@ function App() {
                                   border: "solid 2px",
                                   borderColor: "blue.100",
                                   color: "blue.400",
+                                  _dark: {
+                                    bg: "transparent",
+                                    borderColor: "blue.400",
+                                  },
                                 }}
                                 _disabled={{ color: "rgb(181, 183, 186)" }}
                               />
