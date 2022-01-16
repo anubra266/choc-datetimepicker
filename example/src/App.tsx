@@ -24,7 +24,6 @@ import {
   WeekDate,
 } from "../../";
 import { sub } from "date-fns";
-import Date2 from "./date2";
 
 function App() {
   const [value, setValue] = useState<Date | undefined>();
@@ -51,7 +50,7 @@ function App() {
               <Button>wow</Button>
             </DateTimePickerTrigger> */}
           <DateTimePickerContent w="96">
-            {({ calendars }) => (
+            {({ dayzedProps: { calendars } }) => (
               <>
                 <div>
                   <BackButton />
@@ -116,7 +115,6 @@ function App() {
         </DateTimePicker>
         <FormHelperText>Choose your date</FormHelperText>
       </FormControl>
-      {/* <Date2 /> */}
     </Flex>
   );
 }

@@ -36,7 +36,7 @@ function App() {
       >
         <DateTimePickerTrigger />
         <DateTimePickerContent w="80" p="4" fontWeight="medium" rounded="xl">
-          {({ calendars }) => (
+          {({ dayzedProps: { calendars } }) => (
             <chakra.div display="flex">
               {calendars.map((calendar, i) => (
                 <chakra.div
