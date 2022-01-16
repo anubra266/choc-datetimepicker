@@ -1,5 +1,5 @@
 import { Stack, useColorMode, Button } from "@chakra-ui/react";
-import SimpleDate from "./simple-date";
+import DonaApp from "./dona-app";
 
 export default function App() {
   const { toggleColorMode } = useColorMode();
@@ -7,13 +7,14 @@ export default function App() {
     <Stack
       py="10"
       w="300px"
+      spacing="8"
       direction="column"
       pos="absolute"
       left="50%"
       transform="translateX(-50%)"
     >
       <Button onClick={toggleColorMode}>Color Mode </Button>
-      <SimpleDate />
+      <DonaApp />
     </Stack>
   );
 }

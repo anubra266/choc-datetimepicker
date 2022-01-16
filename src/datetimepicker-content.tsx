@@ -6,29 +6,29 @@ import {
 } from "@chakra-ui/react";
 import { runIfFn } from "@chakra-ui/utils";
 import { MaybeRenderProp } from "@chakra-ui/react-utils";
-import { RenderProps } from "dayzed";
 import React from "react";
 import { useDateTimePickerContext } from "./context";
+import { UseDateTimePickerReturn } from ".";
 
 export type DateTimePickerContentProps = PopoverContentProps & {
-  children: MaybeRenderProp<RenderProps>;
+  children: MaybeRenderProp<UseDateTimePickerReturn>;
 };
 
 export const DateTimePickerContent = forwardRef<
   DateTimePickerContentProps,
   "div"
 >((props, forwardedRef) => {
+  const context = useDateTimePickerContext();
   const {
     listRef,
     getListProps,
-    dayzedProps,
     dateTimePickerProps: { id: pickerId },
-  } = useDateTimePickerContext();
+  } = context;
   const { children, ...restProps } = props;
   const ref = useMergeRefs(forwardedRef, listRef);
   const listProps = getListProps();
 
-  const contentChildren = runIfFn(children, dayzedProps);
+  const contentChildren = runIfFn(children, context);
 
   return (
     <PopoverContent
