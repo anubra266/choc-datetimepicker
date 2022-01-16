@@ -70,7 +70,8 @@ yarn add react-icons
 </div>
 <br />
 
-Learn More in the [Docs]()
+### Docs in Progress...
+<!-- Learn More in the [Docs]() -->
 
 ## Upcoming features
 
