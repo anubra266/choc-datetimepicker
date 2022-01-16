@@ -9,6 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { add } from "date-fns";
 import {
   DateTimePicker,
   DateTimePickerContent,
@@ -26,7 +27,7 @@ function App() {
   const [value, setValue] = useState<Date | undefined>();
 
   return (
-    <FormControl id="email" w="60">
+    <FormControl>
       <FormLabel>Choose Date</FormLabel>
       <DateTimePicker
         id="date"
@@ -36,11 +37,34 @@ function App() {
         disableOutsideMonths
       >
         <DateTimePickerTrigger />
-        <DateTimePickerContent w="80" p="4" fontWeight="medium" rounded="xl">
-          {({ dayzedProps: { calendars }, setDate }) => (
+        <DateTimePickerContent w="80" p="5" fontWeight="medium" rounded="xl">
+          {({ dayzedProps: { calendars }, setToDate }) => (
             <chakra.div>
-              <ButtonGroup size="sm">
-                <Button onClick={() => setDate(new Date())}>Today</Button>
+              <ButtonGroup size="sm" mb="3" w="full">
+                <Button
+                  onClick={() => {
+                    setToDate(new Date());
+                    setValue(new Date());
+                  }}
+                >
+                  Today
+                </Button>{" "}
+                <Button
+                  onClick={() => {
+                    setToDate(add(new Date(), { days: 1 }));
+                    setValue(add(new Date(), { days: 1 }));
+                  }}
+                >
+                  Tomorrow
+                </Button>{" "}
+                <Button
+                  onClick={() => {
+                    setToDate(add(new Date(), { days: 2 }));
+                    setValue(add(new Date(), { days: 2 }));
+                  }}
+                >
+                  In 2 days
+                </Button>
               </ButtonGroup>
               {calendars.map((calendar, i) => (
                 <chakra.div
@@ -52,24 +76,42 @@ function App() {
                     alignItems="center"
                     justifyContent="space-between"
                   >
-                    <BackButton
-                      variant="solid"
-                      boxShadow="0 2px 2px 0 rgba(0, 0, 0, 0.2)"
-                      bg="white"
-                      rounded="lg"
-                    />
+                    <chakra.div display="flex" gap="2">
+                      <BackButton
+                        arrowType="year"
+                        variant="solid"
+                        boxShadow="0 2px 2px 0 rgba(0, 0, 0, 0.2)"
+                        _light={{ bg: "white" }}
+                        rounded="lg"
+                      />
+                      <BackButton
+                        variant="solid"
+                        boxShadow="0 2px 2px 0 rgba(0, 0, 0, 0.2)"
+                        _light={{ bg: "white" }}
+                        rounded="lg"
+                      />
+                    </chakra.div>
                     <chakra.div display="flex" gap="2">
                       <CalendarMonth calendar={calendar} format="long" />
                       <CalendarYear calendar={calendar} />
                     </chakra.div>
-                    <NextButton
-                      variant="solid"
-                      boxShadow="0 2px 2px 0 rgba(0, 0, 0, 0.2)"
-                      bg="white"
-                      rounded="lg"
-                    />
+                    <chakra.div display="flex" gap="2">
+                      <NextButton
+                        variant="solid"
+                        boxShadow="0 2px 2px 0 rgba(0, 0, 0, 0.2)"
+                        _light={{ bg: "white" }}
+                        rounded="lg"
+                      />
+                      <NextButton
+                        arrowType="year"
+                        variant="solid"
+                        boxShadow="0 2px 2px 0 rgba(0, 0, 0, 0.2)"
+                        _light={{ bg: "white" }}
+                        rounded="lg"
+                      />
+                    </chakra.div>
                   </chakra.div>
-                  <chakra.div my="3">
+                  <chakra.div my="2">
                     <WeekNames color="rgb(181, 183, 186)" format="short">
                       {({ weekdays }) =>
                         weekdays.map((weekday, i) => (
@@ -82,7 +124,7 @@ function App() {
                       }
                     </WeekNames>
                   </chakra.div>
-                  <Stack spacing="3">
+                  <Stack spacing="2">
                     {calendar.weeks.map((week, weekIndex) => (
                       <SimpleGrid columns={7} key={weekIndex}>
                         {week.map((dateObj, index) => {
