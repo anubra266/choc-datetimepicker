@@ -50,8 +50,15 @@ function App() {
               <Button>wow</Button>
             </DateTimePickerTrigger> */}
           <DateTimePickerContent w="96">
-            {({ dayzedProps: { calendars } }) => (
+            {({ dayzedProps: { calendars }, setToDate }) => (
               <>
+                <Button
+                  onClick={() => {
+                    setToDate(new Date());
+                  }}
+                >
+                  Today
+                </Button>
                 <div>
                   <BackButton />
                   <NextButton />

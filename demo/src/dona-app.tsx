@@ -2,10 +2,11 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
-  Button,
   chakra,
   SimpleGrid,
   Stack,
+  ButtonGroup,
+  Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import {
@@ -20,7 +21,6 @@ import {
   WeekDay,
   WeekDate,
 } from "choc-datetimepicker";
-import { sub } from "date-fns";
 
 function App() {
   const [value, setValue] = useState<Date | undefined>();
@@ -29,6 +29,7 @@ function App() {
     <FormControl id="email" w="60">
       <FormLabel>Choose Date</FormLabel>
       <DateTimePicker
+        id="date"
         openOnFocus
         selected={value}
         onChange={setValue}
@@ -36,8 +37,11 @@ function App() {
       >
         <DateTimePickerTrigger />
         <DateTimePickerContent w="80" p="4" fontWeight="medium" rounded="xl">
-          {({ dayzedProps: { calendars } }) => (
-            <chakra.div display="flex">
+          {({ dayzedProps: { calendars }, setDate }) => (
+            <chakra.div>
+              <ButtonGroup size="sm">
+                <Button onClick={() => setDate(new Date())}>Today</Button>
+              </ButtonGroup>
               {calendars.map((calendar, i) => (
                 <chakra.div
                   key={`${calendar.month}${calendar.year}/${i}`}

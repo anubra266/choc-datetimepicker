@@ -40,8 +40,11 @@ export type UseDateTimePickerReturn = {
   inputRef: React.RefObject<HTMLInputElement>;
   isOpen: boolean;
   listRef: React.RefObject<HTMLDivElement>;
+  offset: number | undefined;
   onClose: () => void;
   onOpen: () => void;
   date: Date;
   setDate: Dispatch<SetStateAction<Date>>;
+  setOffset: Dispatch<SetStateAction<number | undefined>>;
+  setToDate: (date: Date) => void;
 };

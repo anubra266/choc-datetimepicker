@@ -35,6 +35,12 @@ export function useDateTimePicker(
   const listRef = useRef<HTMLDivElement>(null);
 
   const [date, setDate] = useState<Date>(new Date());
+  const [offset, setOffset] = useState<number | undefined>();
+
+  const setToDate = (date: Date) => {
+    setDate(date);
+    setOffset(0);
+  };
 
   const dateIsValid = (stringDate: string | Date) => {
     const yearConstruct = new Date(stringDate).getFullYear();
@@ -57,6 +63,8 @@ export function useDateTimePicker(
 
   const dayzedProps = useDayzed({
     // firstDayOfWeek: 1,
+    offset,
+    onOffsetChanged: setOffset,
     showOutsideDays: true,
     date: date,
     selected,
@@ -177,9 +185,12 @@ export function useDateTimePicker(
     inputRef,
     isOpen,
     listRef,
+    offset,
     onClose,
     onOpen,
     date,
     setDate,
+    setOffset,
+    setToDate,
   };
 }
