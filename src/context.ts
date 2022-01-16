@@ -1,5 +1,5 @@
 import { createContext } from "@chakra-ui/react-utils";
-import { UseDateTimePickerReturn } from "./types";
+import { UseDateTimePickerReturn } from "./utils/types";
 
 export const [DateTimePickerProvider, useDateTimePickerContext] = createContext<
   UseDateTimePickerReturn

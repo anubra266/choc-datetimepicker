@@ -8,7 +8,7 @@ import {
 import React from "react";
 
 import { ArrowButtonProps } from "../components/arrow-buttons";
-import { ArrowButton, ArrowDirection } from "./types";
+import { ArrowButtonType, ArrowDirection } from "./types";
 
 export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -25,7 +25,7 @@ export const getDefaultArrowProps = ({
   };
 };
 
-type ArrowTypeIcon = Record<ArrowButton, JSX.Element>;
+type ArrowTypeIcon = Record<ArrowButtonType, JSX.Element>;
 
 const icons: Record<ArrowDirection, ArrowTypeIcon> = {
   previous: { month: <FiChevronLeft />, year: <FiChevronsLeft /> },

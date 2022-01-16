@@ -3,11 +3,7 @@ import React from "react";
 import { ARROW_BUTTON_OFFSET } from "..";
 import { useDateTimePickerContext } from "../context";
 import { getDefaultArrowProps } from "../utils/arrowButtons";
-import {
-  ArrowButton as ArrowButtonType,
-  ArrowDirection,
-  ArrowProps,
-} from "../utils/types";
+import { ArrowButtonType, ArrowDirection, ArrowProps } from "../utils/types";
 
 export type ArrowButtonProps = ArrowProps & {
   direction: ArrowDirection;

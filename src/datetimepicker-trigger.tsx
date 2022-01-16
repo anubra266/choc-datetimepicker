@@ -7,9 +7,9 @@ import {
 import { MaybeRenderProp } from "@chakra-ui/react-utils";
 import { runIfFn } from "@chakra-ui/utils";
 import React from "react";
-import { UseDateTimePickerReturn } from ".";
 
 import { useDateTimePickerContext } from "./context";
+import { UseDateTimePickerReturn } from "./utils/types";
 
 export type DateTimePickerTriggerProps = Omit<InputProps, "value"> & {
   children?: MaybeRenderProp<UseDateTimePickerReturn>;

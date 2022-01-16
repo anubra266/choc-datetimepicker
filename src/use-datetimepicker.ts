@@ -5,9 +5,9 @@ import React, { useRef, useState } from "react";
 import { format, getDaysInMonth, setDate as setDateFns } from "date-fns";
 
 import { DateTimePickerProps } from "./datetimepicker";
-import { UseDateTimePickerReturn } from "./types";
 import { ArrowKeys, getDataValue } from "./utils/weekDates";
 import { DATE_ARROW_METHODS, DATE_FORMAT } from ".";
+import { UseDateTimePickerReturn } from "./utils/types";
 
 /**
  * useDateTimepicker is a hook that provides all the state and focus management logic

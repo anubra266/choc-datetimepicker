@@ -5,7 +5,7 @@ import { runIfFn } from "@chakra-ui/utils";
 
 import { DateTimePickerProvider } from "./context";
 import { useDateTimePicker } from "./use-datetimepicker";
-import { UseDateTimePickerProps } from "./types";
+import { UseDateTimePickerProps } from "./utils/types";
 import { UseDateTimePickerReturn } from ".";
 
 export interface DateTimePickerProps extends UseDateTimePickerProps {

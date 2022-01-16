@@ -22,6 +22,7 @@ import {
   WeekNames,
   WeekDay,
   WeekDate,
+  YearPicker,
 } from "../../";
 import { sub } from "date-fns";
 
@@ -42,9 +43,11 @@ function App() {
           selected={value}
           onChange={setValue}
           disableOutsideMonths
+          firstDayOfWeek={1}
           // disabledDates={[disable, disable2]}
           // minDate={minDate}
         >
+          <YearPicker />
           <DateTimePickerTrigger />
           {/* <DateTimePickerTrigger>
               <Button>wow</Button>
