@@ -46,6 +46,11 @@
   <br />
 </div>
 
+## Introduction
+This is a Date and Time picker package for Chakra UI. It aims to provide a very composable API that gives you full control of the rendering of every component in your picker, from the container to arrows to each date. 
+You decide where they render and how they look, no `buttonStyles`, `activeDateStyles`... You decide if you even want it to be a button is the first place, all while still getting all the features a date picker should offer and in the locale of your choice.
+
+In short; _you're the boss_.
 ## Install
 
 ```bash
