@@ -11,6 +11,7 @@ import { useDateTimePickerContext } from "../context";
 import {
   ArrowKeys,
   getDataValue,
+  getFirstDayInMonth,
   handleOutsideMonths,
 } from "../utils/weekDates";
 
@@ -46,9 +47,7 @@ export const WeekDate = (props: WeekDateProps) => {
     if (dateButton) dateButton.focus();
     else {
       // Focus the first day whwenever we navigate the months
-      const firstDay = document.querySelector(
-        `[data-enabled_${pickerId}]`
-      ) as HTMLElement;
+      const firstDay = getFirstDayInMonth(pickerId);
       firstDay.focus();
     }
   }, [calendarDate]);

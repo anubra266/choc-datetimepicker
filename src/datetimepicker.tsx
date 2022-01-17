@@ -1,17 +1,12 @@
 import React from "react";
-import { MaybeRenderProp } from "@chakra-ui/react-utils";
 import { Popover } from "@chakra-ui/react";
 import { runIfFn } from "@chakra-ui/utils";
 
 import { DateTimePickerProvider } from "./context";
 import { useDateTimePicker } from "./use-datetimepicker";
 import { UseDateTimePickerProps } from "./utils/types";
-import { UseDateTimePickerReturn } from ".";
 
-export interface DateTimePickerProps extends UseDateTimePickerProps {
-  children: MaybeRenderProp<UseDateTimePickerReturn>;
-  id: string;
-}
+export type DateTimePickerProps = UseDateTimePickerProps;
 
 //TODO show as modal on smaller screens
 

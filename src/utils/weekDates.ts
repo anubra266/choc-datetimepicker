@@ -11,6 +11,9 @@ export type ArrowKeys = keyof typeof DATE_ARROW_METHODS;
 
 export const getDataValue = (date: Date) => format(date, DATE_FORMAT);
 
+export const getFirstDayInMonth = (pickerId: string) =>
+  document.querySelector(`[data-enabled_${pickerId}]`) as HTMLElement;
+
 export const handleOutsideMonths = (date: Date) => {
   //handle outside months
   if (isFirstDayOfMonth(date)) {

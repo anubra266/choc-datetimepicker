@@ -2,10 +2,15 @@ import { useDimensions, useDisclosure } from "@chakra-ui/react";
 import { runIfFn } from "@chakra-ui/utils";
 import { useDayzed } from "dayzed";
 import React, { useRef, useState } from "react";
-import { format, getDaysInMonth, setDate as setDateFns } from "date-fns";
+import {
+  format,
+  getDaysInMonth,
+  setDate as setDateFns,
+  isDate,
+} from "date-fns";
 
 import { DateTimePickerProps } from "./datetimepicker";
-import { ArrowKeys, getDataValue } from "./utils/weekDates";
+import { ArrowKeys, getDataValue, getFirstDayInMonth } from "./utils/weekDates";
 import { DATE_ARROW_METHODS, DATE_FORMAT } from ".";
 import { UseDateTimePickerReturn } from "./utils/types";
 
@@ -26,16 +31,26 @@ export function useDateTimePicker(
     selected,
     onChange,
     id: pickerId,
+    isOpen: isOpenProp,
+    onClose: onCloseProp,
+    onOpen: onOpenProp,
     ...restPickerProps
   } = dateTimePickerProps;
 
-  const { isOpen, onClose, onOpen } = useDisclosure({ defaultIsOpen });
+  const { isOpen, onClose, onOpen } = useDisclosure({
+    defaultIsOpen,
+    isOpen: isOpenProp,
+    onClose: onCloseProp,
+    onOpen: onOpenProp,
+  });
 
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
   const [date, setDate] = useState<Date>(new Date());
   const [offset, setOffset] = useState<number | undefined>();
+
+  const isSinglePicker = isDate(date);
 
   const setToDate = (date: Date) => {
     setDate(date);
@@ -81,8 +96,13 @@ export function useDateTimePicker(
 
   const [input, setInput] = useState("");
   React.useEffect(() => {
-    const formattedValue = selected && format(selected, DATE_FORMAT);
-    if (formattedValue) setInput(formattedValue!);
+    if (selected) {
+      //Watch here for other modes aside single picker
+      const formattedValue = isSinglePicker
+        ? format(selected as Date, DATE_FORMAT)
+        : null;
+      if (formattedValue) setInput(formattedValue!);
+    }
   }, [selected]);
 
   const getDateButton = (dataValue: string) => {
@@ -133,10 +153,15 @@ export function useDateTimePicker(
       onFocus: e => {
         const contentIsTarget = e.target === e.currentTarget;
         if (contentIsTarget) {
-          //focus the selected date, if none then today's date
-          const dateValueData = getDataValue(selected || new Date());
-          const dateToFocus = getDateButton(dateValueData);
-          if (dateToFocus) dateToFocus.focus();
+          const firstDay = getFirstDayInMonth(pickerId);
+          if (isSinglePicker) {
+            //focus the selected date, if none then today's date
+            const dateValueData = getDataValue(
+              (selected as Date) || new Date()
+            );
+            const dateToFocus = getDateButton(dateValueData);
+            if (dateToFocus) dateToFocus.focus();
+          } else firstDay.focus();
         }
       },
     };

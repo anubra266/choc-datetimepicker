@@ -3,9 +3,11 @@ import {
   PopoverProps,
   PopoverContentProps,
   IconButtonProps,
+  UseDisclosureProps,
 } from "@chakra-ui/react";
 import { Props, RenderProps } from "dayzed";
 import { Dispatch, SetStateAction } from "react";
+import { MaybeRenderProp } from "@chakra-ui/react-utils";
 
 import { DateTimePickerProps } from "../datetimepicker";
 import { DateTimePickerTriggerProps } from "../datetimepicker-trigger";
@@ -31,19 +33,23 @@ export type WeekDateReturnProps = {
 
 export type DayzedProps = Omit<Props, "children" | "render">;
 
-export type UseDateTimePickerProps = Partial<{
-  closeOnBlur: boolean;
-  defaultIsOpen: boolean;
-  disabledDates: Date[];
-  disableOutsideMonths: boolean;
-  isDisabled: boolean;
-  locale: Locale;
-  openOnFocus: boolean;
-  placement: PopoverProps["placement"];
-  selected: Date;
+export interface UseDateTimePickerProps
+  extends Partial<DayzedProps>,
+    Partial<{
+      closeOnBlur: boolean;
+      defaultIsOpen: boolean;
+      disabledDates: Date[];
+      disableOutsideMonths: boolean;
+      isDisabled: boolean;
+      locale: Locale;
+      openOnFocus: boolean;
+      placement: PopoverProps["placement"];
+    }>,
+    UseDisclosureProps {
   onChange: (newDate: any) => void;
-}> &
-  Partial<DayzedProps>;
+  children: MaybeRenderProp<UseDateTimePickerReturn>;
+  id: string;
+}
 
 export type UseDateTimePickerReturn = {
   dateTimePickerProps: DateTimePickerProps;
