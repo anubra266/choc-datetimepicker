@@ -10,7 +10,7 @@
     "@chakra-ui/react": "^1.7.4",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "choc-datetimepicker": "^0.9.0",
+    "choc-datetimepicker": "^0.12.0",
     "framer-motion": "^4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
