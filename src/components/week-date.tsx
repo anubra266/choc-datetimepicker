@@ -11,7 +11,6 @@ import { useDateTimePickerContext } from "../context";
 import {
   ArrowKeys,
   getDataValue,
-  getFirstDayInMonth,
   handleOutsideMonths,
 } from "../utils/weekDates";
 
@@ -28,15 +27,12 @@ export const WeekDate = (props: WeekDateProps) => {
     dateTimePickerProps,
     setDate,
     date: calendarDate,
+    getFirstDayInMonth,
     getWeekDateProps,
   } = useDateTimePickerContext();
 
   const { findNextDate, getDateButton } = getWeekDateProps();
-  const {
-    disabledDates,
-    disableOutsideMonths,
-    id: pickerId,
-  } = dateTimePickerProps;
+  const { disabledDates, disableOutsideMonths } = dateTimePickerProps;
   const { getDateProps } = dayzedProps;
 
   if (!dateObj) return null;
@@ -47,7 +43,7 @@ export const WeekDate = (props: WeekDateProps) => {
     if (dateButton) dateButton.focus();
     else {
       // Focus the first day whwenever we navigate the months
-      const firstDay = getFirstDayInMonth(pickerId);
+      const firstDay = getFirstDayInMonth();
       firstDay.focus();
     }
   }, [calendarDate]);
@@ -85,9 +81,8 @@ export const WeekDate = (props: WeekDateProps) => {
   const dataProps = {
     "data-selected": dataAttr(selected),
     "data-today": dataAttr(today),
-
-    [`data-enabled_${pickerId}`]: dataAttr(!isDisabled),
-    [`data-value_${pickerId}`]: dataValue,
+    "data-enabled": dataAttr(!isDisabled),
+    "data-value": dataValue,
   };
 
   return (

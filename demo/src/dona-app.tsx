@@ -45,7 +45,6 @@ function App() {
       <FormControl>
         <FormLabel>Choose Date</FormLabel>
         <DateTimePicker
-          id="date"
           openOnFocus
           selected={value}
           onChange={setValue}

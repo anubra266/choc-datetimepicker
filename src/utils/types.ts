@@ -48,12 +48,12 @@ export interface UseDateTimePickerProps
     UseDisclosureProps {
   onChange: (newDate: any) => void;
   children: MaybeRenderProp<UseDateTimePickerReturn>;
-  id: string;
 }
 
 export type UseDateTimePickerReturn = {
   dateTimePickerProps: DateTimePickerProps;
   dayzedProps: RenderProps;
+  getFirstDayInMonth: () => HTMLElement;
   getInputProps: (props: DateTimePickerTriggerProps) => InputProps;
   getListProps: () => ListReturnProps;
   getWeekDateProps: () => WeekDateReturnProps;

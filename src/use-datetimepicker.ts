@@ -10,7 +10,7 @@ import {
 } from "date-fns";
 
 import { DateTimePickerProps } from "./datetimepicker";
-import { ArrowKeys, getDataValue, getFirstDayInMonth } from "./utils/weekDates";
+import { ArrowKeys, getDataValue } from "./utils/weekDates";
 import { DATE_ARROW_METHODS, DATE_FORMAT } from ".";
 import { UseDateTimePickerReturn } from "./utils/types";
 
@@ -30,7 +30,6 @@ export function useDateTimePicker(
     openOnFocus,
     selected,
     onChange,
-    id: pickerId,
     isOpen: isOpenProp,
     onClose: onCloseProp,
     onOpen: onOpenProp,
@@ -68,13 +67,8 @@ export function useDateTimePicker(
     }
   };
 
-  React.useEffect(() => {
-    const pickers = document.querySelectorAll(`[data-pickerid='${pickerId}']`);
-    if (pickers.length > 1)
-      console.error(
-        `Found ${pickers.length} pickers with id \`${pickerId}\`; The id should be unique for each picker `
-      );
-  }, []);
+  const getFirstDayInMonth = () =>
+    listRef?.current?.querySelector(`[data-enabled]`) as HTMLElement;
 
   const dayzedProps = useDayzed({
     // firstDayOfWeek: 1,
@@ -106,8 +100,8 @@ export function useDateTimePicker(
   }, [selected]);
 
   const getDateButton = (dataValue: string) => {
-    return document.querySelector(
-      `[data-value_${pickerId}='${dataValue}']`
+    return listRef?.current?.querySelector(
+      `[data-value='${dataValue}']`
     ) as HTMLElement;
   };
 
@@ -153,7 +147,7 @@ export function useDateTimePicker(
       onFocus: e => {
         const contentIsTarget = e.target === e.currentTarget;
         if (contentIsTarget) {
-          const firstDay = getFirstDayInMonth(pickerId);
+          const firstDay = getFirstDayInMonth();
           if (isSinglePicker) {
             //focus the selected date, if none then today's date
             const dateValueData = getDataValue(
@@ -183,7 +177,7 @@ export function useDateTimePicker(
         const dataValue = getDataValue(dateFromDay);
         const dateButton = getDateButton(dataValue);
         if (
-          (dateButton?.dataset[`enabled_${pickerId}`] === "" ||
+          (dateButton?.dataset[`enabled`] === "" ||
             // Don't move focus when navigating up or down and the next date is disabled
             ["ArrowUp", "ArrowDown"].includes(direction)) &&
           !acc
@@ -204,6 +198,7 @@ export function useDateTimePicker(
   return {
     dateTimePickerProps,
     dayzedProps,
+    getFirstDayInMonth,
     getInputProps,
     getListProps,
     getWeekDateProps,
