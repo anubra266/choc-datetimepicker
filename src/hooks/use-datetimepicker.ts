@@ -1,18 +1,24 @@
 import { useDimensions, useDisclosure } from "@chakra-ui/react";
 import { runIfFn } from "@chakra-ui/utils";
-import { useDayzed } from "dayzed";
+import { DateObj, useDayzed } from "dayzed";
 import React, { useRef, useState } from "react";
 import {
   format,
   getDaysInMonth,
   setDate as setDateFns,
-  isDate,
+  isSameDay,
 } from "date-fns";
 
-import { DateTimePickerProps } from "./datetimepicker";
-import { ArrowKeys, getDataValue } from "./utils/weekDates";
-import { DATE_ARROW_METHODS, DATE_FORMAT } from ".";
-import { UseDateTimePickerReturn } from "./utils/types";
+import { DateTimePickerProps } from "../datetimepicker";
+import {
+  ArrowKeys,
+  compactDate,
+  getDataValue,
+  sortDatesAsc,
+} from "../utils/weekDates";
+import { DATE_ARROW_METHODS, DATE_FORMAT } from "..";
+import { UseDateTimePickerReturn } from "../utils/types";
+import { useRangeDateProps } from "./use-range-date-props";
 
 /**
  * useDateTimepicker is a hook that provides all the state and focus management logic
@@ -27,12 +33,15 @@ export function useDateTimePicker(
     closeOnBlur = true,
     defaultIsOpen,
     isDisabled,
-    openOnFocus,
-    selected,
-    onChange,
     isOpen: isOpenProp,
+    isRange,
+    onChange,
     onClose: onCloseProp,
     onOpen: onOpenProp,
+    onStartDateChange,
+    onEndDateChange,
+    openOnFocus,
+    selected,
     ...restPickerProps
   } = dateTimePickerProps;
 
@@ -48,8 +57,9 @@ export function useDateTimePicker(
 
   const [date, setDate] = useState<Date>(new Date());
   const [offset, setOffset] = useState<number | undefined>();
+  const [input, setInput] = useState("");
 
-  const isSinglePicker = isDate(date);
+  const [startDate, endDate] = compactDate(selected);
 
   const setToDate = (date: Date) => {
     setDate(date);
@@ -61,43 +71,73 @@ export function useDateTimePicker(
     return !isNaN(yearConstruct);
   };
 
-  const updateDate = (newDate: Date | string) => {
+  const updateSingleDate = (newDate: Date | string) => {
     if (dateIsValid(newDate)) {
       runIfFn(onChange, new Date(newDate));
     }
   };
 
-  const getFirstDayInMonth = () =>
-    listRef?.current?.querySelector(`[data-enabled]`) as HTMLElement;
+  const updateRangeDate = (dateObj: DateObj) => {
+    // Set start date
+    if (startDate && endDate) {
+      runIfFn(onStartDateChange, dateObj.date);
+      onChange([dateObj.date]);
+      return;
+    }
+
+    // Set second date selected and correct ordering, as user may select dates
+    // in reverse order
+    if (startDate && !endDate && !isSameDay(date, startDate)) {
+      const [newStart, newEnd] = sortDatesAsc([startDate, dateObj.date]);
+
+      runIfFn(onStartDateChange, newStart);
+      runIfFn(onEndDateChange, newEnd);
+      onChange([newStart, newEnd]);
+      return;
+    }
+
+    // Otherwise, reset dates
+    runIfFn(onStartDateChange, dateObj.date);
+    runIfFn(onEndDateChange, undefined);
+    onChange([dateObj.date]);
+  };
+
+  const onDateSelected = (dateObj: DateObj) => {
+    if (!dateObj.selectable) {
+      return;
+    }
+
+    if (isRange) {
+      updateRangeDate(dateObj);
+    } else {
+      updateSingleDate(dateObj.date);
+    }
+  };
 
   const dayzedProps = useDayzed({
-    // firstDayOfWeek: 1,
-    offset,
-    onOffsetChanged: setOffset,
-    showOutsideDays: true,
     date: date,
-    selected,
-    onDateSelected: _options => {
-      updateDate(_options.date);
-      // if (!options.selectable) {
-      //   return;
-      // }
-      // props.onChange(options.date);
-    },
     monthsToDisplay: 1,
+    offset,
+    onDateSelected,
+    onOffsetChanged: setOffset,
+    selected,
+    showOutsideDays: true,
     ...restPickerProps,
   });
 
-  const [input, setInput] = useState("");
   React.useEffect(() => {
     if (selected) {
-      //Watch here for other modes aside single picker
-      const formattedValue = isSinglePicker
-        ? format(selected as Date, DATE_FORMAT)
-        : null;
+      //TODO Watch here for other modes aside single picker
+      //! Account for range Here
+      const formattedValue = isRange
+        ? null
+        : format(selected as Date, DATE_FORMAT);
       if (formattedValue) setInput(formattedValue!);
     }
   }, [selected]);
+
+  const getFirstDayInMonth = () =>
+    listRef?.current?.querySelector(`[data-enabled]`) as HTMLElement;
 
   const getDateButton = (dataValue: string) => {
     return listRef?.current?.querySelector(
@@ -105,12 +145,17 @@ export function useDateTimePicker(
     ) as HTMLElement;
   };
 
+  const rangeDateProps = useRangeDateProps(isRange, selected as Date[]);
+
   const getInputProps: UseDateTimePickerReturn["getInputProps"] = props => {
     const { onBlur, onFocus, ...rest } = props;
     const onChangeInput: React.ChangeEventHandler<HTMLInputElement> = e => {
       const inputValue = e.target.value;
       if (dateIsValid(inputValue)) {
-        updateDate(inputValue);
+        // TODO
+        /** We'll have two inputs when it's a range, and dynamically pass different props for those inputs, so input 1 should be updating start-date and 2: end-date */
+        //! Account for range Here
+        // updateDate(inputValue);
         setDate(new Date(inputValue));
       }
       setInput(inputValue);
@@ -147,15 +192,12 @@ export function useDateTimePicker(
       onFocus: e => {
         const contentIsTarget = e.target === e.currentTarget;
         if (contentIsTarget) {
-          const firstDay = getFirstDayInMonth();
-          if (isSinglePicker) {
-            //focus the selected date, if none then today's date
-            const dateValueData = getDataValue(
-              (selected as Date) || new Date()
-            );
-            const dateToFocus = getDateButton(dateValueData);
-            if (dateToFocus) dateToFocus.focus();
-          } else firstDay.focus();
+          //focus the selected date, if none then today's date
+          const dateValueData = getDataValue(
+            ((isRange ? startDate : selected) as Date) || new Date()
+          );
+          const dateToFocus = getDateButton(dateValueData);
+          if (dateToFocus) dateToFocus.focus();
         }
       },
     };
@@ -192,6 +234,7 @@ export function useDateTimePicker(
     return {
       findNextDate,
       getDateButton,
+      rangeDateProps,
     };
   };
 

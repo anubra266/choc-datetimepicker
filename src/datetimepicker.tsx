@@ -3,7 +3,7 @@ import { Popover } from "@chakra-ui/react";
 import { runIfFn } from "@chakra-ui/utils";
 
 import { DateTimePickerProvider } from "./context";
-import { useDateTimePicker } from "./use-datetimepicker";
+import { useDateTimePicker } from "./hooks/use-datetimepicker";
 import { UseDateTimePickerProps } from "./utils/types";
 
 export type DateTimePickerProps = UseDateTimePickerProps;
