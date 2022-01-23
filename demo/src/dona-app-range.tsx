@@ -22,16 +22,19 @@ import {
 } from "choc-datetimepicker";
 
 function App() {
-  const [value, setValue] = useState<Date | Date[] | undefined>();
+  const [value, setValue] = useState<any>();
 
   return (
     <>
       <FormControl w="fit-content">
-        <FormLabel>Choose Date</FormLabel>
+        <FormLabel>Choose Date : {value?.map((d: any) => d + " ")}</FormLabel>
         <DateTimePicker
           openOnFocus
           selected={value}
-          onChange={setValue}
+          onChange={d => {
+            console.log(d);
+            setValue(d);
+          }}
           disableOutsideMonths
           isRange
           monthsToDisplay={2}
