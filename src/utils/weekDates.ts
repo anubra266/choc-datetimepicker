@@ -4,6 +4,8 @@ import {
   isLastDayOfMonth,
   add,
   sub,
+  isBefore,
+  isAfter,
 } from "date-fns";
 import { DATE_ARROW_METHODS, DATE_FORMAT } from "..";
 
@@ -23,4 +25,19 @@ export const handleOutsideMonths = (date: Date) => {
     return nextDate;
   }
   return undefined;
+};
+
+export const compactDate = (dates: Date | Date[] | undefined) => {
+  const dateArray = dates as Date[] | undefined;
+  const startDate = dateArray && dateArray[0];
+  const endtDate = dateArray && dateArray[1];
+  return [startDate, endtDate] as const;
+};
+
+export const sortDatesAsc = <T extends number | Date | undefined>(
+  dates: T[]
+): T[] => {
+  return dates.sort((a, b) =>
+    isAfter(a!, b!) ? 1 : isBefore(a!, b!) ? -1 : 0
+  );
 };

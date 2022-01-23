@@ -17,10 +17,18 @@ import {
 export type WeekDateProps = ButtonProps & {
   dateObj: "" | DateObj;
   _today?: CSSObject;
+  _rangeHovered?: CSSObject;
+  _rangeSelected?: CSSObject;
 };
 
 export const WeekDate = (props: WeekDateProps) => {
-  const { dateObj, _today, ...restProps } = props;
+  const {
+    dateObj,
+    _today,
+    _rangeHovered,
+    _rangeSelected,
+    ...restProps
+  } = props;
 
   const {
     dayzedProps,
@@ -31,9 +39,15 @@ export const WeekDate = (props: WeekDateProps) => {
     getWeekDateProps,
   } = useDateTimePickerContext();
 
-  const { findNextDate, getDateButton } = getWeekDateProps();
-  const { disabledDates, disableOutsideMonths } = dateTimePickerProps;
+  const { disabledDates, disableOutsideMonths, selected } = dateTimePickerProps;
   const { getDateProps } = dayzedProps;
+  const { findNextDate, getDateButton, rangeDateProps } = getWeekDateProps();
+  const {
+    getHoverEvents,
+    getRangeStyles,
+    isWithinHover,
+    isWithinSelect,
+  } = rangeDateProps;
 
   if (!dateObj) return null;
 
@@ -48,7 +62,14 @@ export const WeekDate = (props: WeekDateProps) => {
     }
   }, [calendarDate]);
 
-  let { date, selected, selectable, today, prevMonth, nextMonth } = dateObj;
+  let {
+    date,
+    selected: isSelected,
+    selectable,
+    today,
+    prevMonth,
+    nextMonth,
+  } = dateObj;
 
   const isOutsideMonth = prevMonth || nextMonth;
 
@@ -78,24 +99,31 @@ export const WeekDate = (props: WeekDateProps) => {
     }
   };
 
-  const dataProps = {
-    "data-selected": dataAttr(selected),
-    "data-today": dataAttr(today),
+  const dataset = {
     "data-enabled": dataAttr(!isDisabled),
+    "data-selected": dataAttr(isSelected),
+    "data-today": dataAttr(today),
     "data-value": dataValue,
+    "data-withinhover": dataAttr(selected && isWithinHover(dateObj.date)),
+    "data-withinselect": dataAttr(selected && isWithinSelect(dateObj.date)),
   };
+
+  const rangeHoverEvents = getHoverEvents(date);
+  const rangeStyles = getRangeStyles(dateObj, props);
 
   return (
     <Button
       {...getDateProps({ dateObj, disabled: isDisabled })}
-      {...dataProps}
-      {...defaultRootStyles}
+      {...dataset}
       _disabled={defaultDisabledStyles}
       _selected={defaultSelectedStyles}
       __css={{
         "&[data-today]": _today || defaultTodayStyles,
+        ...rangeStyles,
+        ...defaultRootStyles,
       }}
       onKeyDown={onKeyDown}
+      {...rangeHoverEvents}
       {...restProps}
     >
       {date.getDate()}
@@ -127,4 +155,6 @@ const defaultRootStyles: ButtonProps = {
   boxSize: 8,
   justifySelf: "center",
   variant: "ghost",
+  borderWidth: 1,
+  borderColor: "transparent",
 };
