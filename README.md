@@ -73,6 +73,8 @@ yarn add react-icons
 <img width="432" alt="CleanShot 2022-01-16 at 15 57 37@2x" src="https://user-images.githubusercontent.com/30869823/149665313-59a08d46-fb52-4bdb-982d-a1c11b0aa1c7.png">
 <img width="393" alt="CleanShot 2022-01-16 at 15 57 47@2x" src="https://user-images.githubusercontent.com/30869823/149665314-2d9d6bfc-bd85-4eeb-b08b-df84221c6a8a.png">
 </div>
+<img width="879" alt="CleanShot 2022-01-23 at 13 57 49@2x" src="https://user-images.githubusercontent.com/30869823/150679576-6c833d70-a4f2-41d6-89dc-c96b1be5bb18.png">
+
 <br />
 
 ### Docs in Progress...
