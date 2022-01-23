@@ -4,16 +4,10 @@ import {
   FormHelperText,
   FormLabel,
   chakra,
-  SimpleGrid,
   Stack,
-  ButtonGroup,
-  Button,
-  Text,
-  Link,
   Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { add } from "date-fns";
 import {
   DateTimePicker,
   DateTimePickerContent,
@@ -25,7 +19,7 @@ import {
   WeekNames,
   WeekDay,
   WeekDate,
-} from "../../dist";
+} from "choc-datetimepicker";
 
 function App() {
   const [value, setValue] = useState<Date | Date[] | undefined>();
