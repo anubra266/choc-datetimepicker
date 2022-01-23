@@ -87,7 +87,7 @@ export function useDateTimePicker(
 
     // Set second date selected and correct ordering, as user may select dates
     // in reverse order
-    if (startDate && !endDate && !isSameDay(date, startDate)) {
+    if (startDate && !endDate && !isSameDay(dateObj.date, startDate)) {
       const [newStart, newEnd] = sortDatesAsc([startDate, dateObj.date]);
 
       runIfFn(onStartDateChange, newStart);
