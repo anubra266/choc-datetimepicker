@@ -1,12 +1,13 @@
 import { useDimensions, useDisclosure } from "@chakra-ui/react";
-import { runIfFn } from "@chakra-ui/utils";
+import { runIfFn, isArray } from "@chakra-ui/utils";
 import { DateObj, useDayzed } from "dayzed";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   format,
   getDaysInMonth,
   setDate as setDateFns,
   isSameDay,
+  isDate,
 } from "date-fns";
 
 import { DateTimePickerProps } from "../datetimepicker";
@@ -55,7 +56,16 @@ export function useDateTimePicker(
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  const [date, setDate] = useState<Date>(new Date());
+  const isValidDate = (date?: Date | Date[]): date is Date => isDate(date);
+
+  const getDefaultDate = () => {
+    if (isValidDate(selected)) return selected;
+    if (isArray(selected) && isValidDate(selected[0])) return selected[0];
+    return new Date();
+  };
+  const defaultDate = getDefaultDate();
+  const [date, setDate] = useState<Date>(defaultDate);
+
   const [offset, setOffset] = useState<number | undefined>();
   const [input, setInput] = useState("");
 
@@ -65,6 +75,11 @@ export function useDateTimePicker(
     setDate(date);
     setOffset(0);
   };
+
+  useEffect(() => {
+    console.log(isValidDate(new Date()));
+    // if (isValidDate(selected)) setToDate(selected);
+  }, []);
 
   const dateIsValid = (stringDate: string | Date) => {
     const yearConstruct = new Date(stringDate).getFullYear();

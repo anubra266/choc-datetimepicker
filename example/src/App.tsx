@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 import { useState } from "react";
+import { addDays, addMonths } from "date-fns";
 import {
   DateTimePicker,
   DateTimePickerContent,
@@ -28,13 +29,22 @@ import { sub } from "date-fns";
 import DonaApp from "./dona-app";
 
 function App() {
-  const [value, setValue] = useState<Date | Date[] | undefined>();
+  const [value, setValue] = useState<Date | Date[] | undefined>(
+    addMonths(new Date(), 1)
+  );
   const { toggleColorMode } = useColorMode();
   const disable = sub(new Date(), { days: 4 });
   const disable2 = sub(new Date(), { days: 2 });
 
   return (
-    <Flex pt="28" justify="center" align="center" w="full" direction="column" gap={4}>
+    <Flex
+      pt="28"
+      justify="center"
+      align="center"
+      w="full"
+      direction="column"
+      gap={4}
+    >
       <Button onClick={toggleColorMode}>Color Mode </Button>
       <DonaApp />
       <FormControl id="email" w="60">

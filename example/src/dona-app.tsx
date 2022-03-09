@@ -13,7 +13,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { add } from "date-fns";
+import { addMonths, addDays } from "date-fns";
 import {
   DateTimePicker,
   DateTimePickerContent,
@@ -28,7 +28,10 @@ import {
 } from "../../";
 
 function App() {
-  const [value, setValue] = useState<Date | Date[] | undefined>();
+  const [value, setValue] = useState<Date | Date[] | undefined>([
+    addMonths(new Date(), 2),
+    addMonths(new Date(), 3),
+  ]);
 
   return (
     <>
