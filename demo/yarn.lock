@@ -1065,10 +1065,10 @@ chalk@^2.0.0:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-choc-datetimepicker@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/choc-datetimepicker/-/choc-datetimepicker-0.13.0.tgz#c1dabc8001dad1ec91b5fc0efcca2fc27dfbb743"
-  integrity sha512-Rsx7Kar5rj3+elU2XYO2le+Le3ueK5eW6B/X/9uohWLp9bgGVGS8CsLW7pRjdu8m2ah9kVugGTdcbzdrMWAtRA==
+choc-datetimepicker@latest:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/choc-datetimepicker/-/choc-datetimepicker-0.13.2.tgz#2f4c284d62b8a51c229ac9cf7d976190e245da80"
+  integrity sha512-ZZut0YLAmpz2KhImnX6inTSXjmHvQmpqrSIYNYWDAeRVMtpDfbCoRf69SFAWUqlFPPXJlv/K28Z9nMr5THmeRg==
   dependencies:
     dayzed "^3.2.2"
 
@@ -1415,11 +1415,9 @@ json-parse-even-better-errors@^2.3.0:
   integrity sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==
 
 json5@^2.1.2:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.0.tgz#2dfefe720c6ba525d9ebd909950f0515316c89a3"
-  integrity sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
-  dependencies:
-    minimist "^1.2.5"
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
+  integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
 lines-and-columns@^1.1.6:
   version "1.2.4"
@@ -1437,11 +1435,6 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
-
-minimist@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
 ms@2.1.2:
   version "2.1.2"
